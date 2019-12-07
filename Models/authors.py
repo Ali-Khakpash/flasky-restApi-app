@@ -11,6 +11,7 @@ class Author(db.Model):
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(20))
     created = db.Column(db.DateTime, server_default=db.func.now())
+    updated = db.Column(db.DateTime, nullable=True)
     books = db.relationship('Book', backref='Author',cascade="all, delete-orphan")
 
     def __init__(self, first_name, last_name, books=[]):
