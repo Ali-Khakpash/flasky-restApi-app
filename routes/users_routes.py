@@ -35,7 +35,7 @@ def authenticate_user():
 
 blacklist = set()
 
-@jwt.token_in_blacklist_loader
+@jwt.token_in_blacklist_loader #this might decrease the speed.to avoid,we can use redis,...
 def check_if_token_in_blacklist(decrypted_token):
     jti = decrypted_token['jti']
     return jti in blacklist
