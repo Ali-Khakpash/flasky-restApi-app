@@ -3,6 +3,7 @@ from flask import request, make_response,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from Models.authors import Author,db,authors_schema,author_schema
 from flask_jwt_extended import jwt_required
+from redis_db import redis_client
 
 author_routes = Blueprint("author_routes", __name__)
 
@@ -17,6 +18,10 @@ def create_author():
     # new_author.updated = '2020-12-07 09:41:58'
     db.session.add(new_author)
     db.session.commit()
+
+    # user_id = str(redis_client.incrby('Author:Book:Number:ADay:'))
+    # book_value = str(redis_client.incrby('number_of_article_aday'))
+    # redis_client.hset('Author:Book:Number:ADay:' + user_id, 'number_of_article_aday', book_value)
     return make_response('hghhghgh')
 
 

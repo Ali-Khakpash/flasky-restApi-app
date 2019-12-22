@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import request, make_response,jsonify 
 from flask_sqlalchemy import SQLAlchemy
 from Models.books import Book, db, books_schema, book_schema
+from redis_db import redis_client
 
 book_routes = Blueprint("book_routes", __name__)
 
@@ -10,10 +11,28 @@ book_routes = Blueprint("book_routes", __name__)
 def create_author():
     data = request.get_json()
     new_book = Book(data['title'], data['year'] , data['author_id'])
-    db.session.add(new_book)
-    db.session.commit()
+
+    # book_value = str(redis_client.hincrby('Author:' + data['author_id'], 'number_of_article_aday', amount=1))#redis hsah to check number of books posted by an author
+    # redis_client.hset('Author:' + data['author_id'], 'number_of_article_aday', book_value)
+
+    if(redis_client.hexists('Author:' + data['author_id'], 'number_of_article_aday')):
+      author_hash = redis_client.hgetall('Author:' + data['author_id'])
+
+      if(author_hash['number_of_article_aday'] <= str(2)):
+          db.session.add(new_book)
+          db.session.commit()
+          book_value = str(redis_client.hincrby('Author:' + data['author_id'], 'number_of_article_aday',amount=1))  # redis hsah to check number of books posted by an author
+          redis_client.hset('Author:' + data['author_id'], 'number_of_article_aday', book_value)
+    else:
+          db.session.add(new_book)
+          db.session.commit()
+          book_value = str(redis_client.hincrby('Author:' + data['author_id'], 'number_of_article_aday',amount=1))  # redis hsah to check number of books posted by an author
+          redis_client.hset('Author:' + data['author_id'], 'number_of_article_aday', book_value)
+
+
     result = book_schema.dump(new_book)
     return make_response(jsonify({"book": result}))
+
 
 @book_routes.route('', methods=['GET'])
 def get_all_book():

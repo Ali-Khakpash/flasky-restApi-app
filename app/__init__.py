@@ -7,6 +7,7 @@ from routes.users_routes import user_routes
 # from Models.authors import db,ma
 # from Models.books import db,ma
 from db import db,ma,jwt
+from redis_db import redis_client
 # from routes.users_routes import jwt
 
 
@@ -18,6 +19,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     app.config['JWT_BLACKLIST_ENABLED'] = True
     config[config_name].init_app(app)
+    redis_client.init_app(app)
     jwt.init_app(app)
     db.init_app(app)
     ma.init_app(app)

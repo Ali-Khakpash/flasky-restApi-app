@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from Models.users import User,db,users_schema,user_schema
 from flask_jwt_extended import create_access_token,jwt_required,get_raw_jwt
 from db import jwt
+from redis_db import redis_client
 
 
 user_routes = Blueprint("user_routes", __name__)
@@ -28,6 +29,10 @@ def authenticate_user():
 
     if User.verify_hash(data['password'], current_user.password):
        access_token = create_access_token(identity =data['username'])
+
+       #user_id = str(redis_client.incrby('Author:Book:Number:ADay:'))
+       #book_value = str(redis_client.incrby('number_of_article_aday'))
+       #redis_client.hset('Author:' + data['username'], 'number_of_article_aday', '0')
 
        return make_response(jsonify({"access_token": access_token}))
 
