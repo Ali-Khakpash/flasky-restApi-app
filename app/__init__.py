@@ -8,6 +8,7 @@ from routes.users_routes import user_routes
 # from Models.books import db,ma
 from db import db,ma,jwt
 from redis_db import redis_client
+from rbac_fl import rbac
 # from routes.users_routes import jwt
 
 
@@ -18,7 +19,9 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     app.config['JWT_BLACKLIST_ENABLED'] = True
+    app.config['RBAC_USE_WHITE'] = True
     config[config_name].init_app(app)
+    rbac.init_app(app)
     redis_client.init_app(app)
     jwt.init_app(app)
     db.init_app(app)
