@@ -9,6 +9,8 @@ from routes.users_routes import user_routes
 from db import db,ma,jwt
 from redis_db import redis_client
 from rbac_fl import rbac
+from Models.role import Role
+from Models.users import User
 # from routes.users_routes import jwt
 
 
@@ -21,7 +23,9 @@ def create_app(config_name):
     app.config['JWT_BLACKLIST_ENABLED'] = True
     app.config['RBAC_USE_WHITE'] = True
     config[config_name].init_app(app)
-    rbac.init_app(app)
+    # rbac.init_app(app)
+    # rbac.set_user_model(User)
+    # rbac.set_role_model(Role)
     redis_client.init_app(app)
     jwt.init_app(app)
     db.init_app(app)

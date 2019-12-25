@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 from flask_rbac import UserMixin
+from Models.role import Role
+
 
 
 users_roles = db.Table(
@@ -17,7 +19,6 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(120), unique = True,nullable = False)
     password = db.Column(db.String(120), nullable = False)
-
     roles = db.relationship(
         'Role',
         secondary=users_roles,
@@ -25,6 +26,8 @@ class User(db.Model):
     )
 
     def add_role(self, role):
+        # obj = Role.query.filter_by(name=role.name).first()
+        # if not obj:
         self.roles.append(role)
 
     def add_roles(self, roles):
