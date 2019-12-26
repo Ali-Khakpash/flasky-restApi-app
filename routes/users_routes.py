@@ -19,8 +19,10 @@ def create_user():
         data['password'] = User.generate_hash(data['password'])
         new_user = User(data['username'], data['password'])
         # new_author.updated = '2020-12-07 09:41:58'
-        r = Role('user')
-        new_user.add_role(r)
+        # r = Role('user')
+        # new_user.add_role(r)
+        admin_role = Role.query.filter_by(name='admin').first()
+        admin_role.users.append(new_user)
         db.session.add(new_user)
         db.session.commit()
         return make_response(jsonify({"user": user_schema.dump(new_user)}))

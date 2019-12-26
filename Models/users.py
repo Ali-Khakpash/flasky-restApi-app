@@ -22,7 +22,7 @@ class User(db.Model):
     roles = db.relationship(
         'Role',
         secondary=users_roles,
-        backref=db.backref('roles', lazy='dynamic')
+        backref=db.backref('users', lazy='dynamic')
     )
 
     def add_role(self, role):
