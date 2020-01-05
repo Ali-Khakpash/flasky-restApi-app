@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ed9ebb66-2f31-4a22-ab7e-b8c2ccbac340" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Models/products.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/authors.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/authors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/books.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/books_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/products_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users_routes.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VI8r8J2ohRnwHMBYRLyYLf3IaX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ed9ebb66-2f31-4a22-ab7e-b8c2ccbac340" name="Default Changelist" comment="" />
+      <created>1576929319161</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576929319161</updated>
+      <workItem from="1576929321856" duration="119000" />
+      <workItem from="1576929446160" duration="2715000" />
+      <workItem from="1576992521192" duration="15211000" />
+      <workItem from="1577191832657" duration="2008000" />
+      <workItem from="1577193844497" duration="152000" />
+      <workItem from="1577251951706" duration="286000" />
+      <workItem from="1577252246056" duration="1977000" />
+      <workItem from="1577257244904" duration="2541000" />
+      <workItem from="1577260803786" duration="6544000" />
+      <workItem from="1577510941070" duration="653000" />
+      <workItem from="1577696307044" duration="642000" />
+      <workItem from="1578127695673" duration="52000" />
+      <workItem from="1578131369156" duration="699000" />
+      <workItem from="1578200710425" duration="46000" />
+      <workItem from="1578202527785" duration="1539000" />
+      <workItem from="1578205028257" duration="2890000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="428" y="124" width="800" height="677" key="#Notifications" timestamp="1576929389704">
+      <screen x="67" y="27" width="1533" height="873" />
+    </state>
+    <state x="428" y="124" width="800" height="677" key="#Notifications/67.27.1533.873@67.27.1533.873" timestamp="1576929389704" />
+    <state x="616" y="220" width="424" height="484" key="FileChooserDialogImpl" timestamp="1578200754780">
+      <screen x="67" y="27" width="1533" height="873" />
+    </state>
+    <state x="616" y="220" width="424" height="484" key="FileChooserDialogImpl/67.27.1533.873@67.27.1533.873" timestamp="1578200754780" />
+    <state x="489" y="290" key="com.intellij.ide.util.TipDialog" timestamp="1578200731369">
+      <screen x="67" y="27" width="1533" height="873" />
+    </state>
+    <state x="489" y="290" key="com.intellij.ide.util.TipDialog/67.27.1533.873@67.27.1533.873" timestamp="1578200731369" />
+    <state x="558" y="376" width="540" height="172" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1577252296831">
+      <screen x="67" y="27" width="1533" height="873" />
+    </state>
+    <state x="558" y="376" width="540" height="172" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/67.27.1533.873@67.27.1533.873" timestamp="1577252296831" />
+  </component>
+</project>

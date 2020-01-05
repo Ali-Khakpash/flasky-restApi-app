@@ -32,6 +32,12 @@ def authenticate_user():
        return make_response(jsonify({"access_token": access_token}))
 
 
+@user_routes.route('', methods=['GET'])
+def get_all_users():
+    all_users =  User.query.all()
+    return make_response(jsonify({"users": users_schema.dump(all_users)}))
+
+
 
 blacklist = set()
 
