@@ -3,7 +3,7 @@ from passlib.hash import pbkdf2_sha256 as sha256
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
-from Models.products import ProductSchema
+from Models.plans import Plan, plans_schema, paln_schema, PlanSchema
 
 
 class User(db.Model):
@@ -11,13 +11,13 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(120), unique = True,nullable = False)
     password = db.Column(db.String(120), nullable = False)
-    products = db.relationship('Product', backref='user_products', cascade="all, delete-orphan")
+    plans = db.relationship('Plan', backref='user_plans', cascade="all, delete-orphan")
 
 
-    def __init__(self, username, password, products=[]):
+    def __init__(self, username, password, plans=[]):
         self.username = username
         self.password = password
-        self.products = products
+        self.plans = plans
 
     @classmethod
     def find_by_username(cls, username):
@@ -36,7 +36,7 @@ class UserSchema(ModelSchema):
           sqla_session = db.session
     id = fields.Number(dump_only=True)
     username = fields.String(required=True)
-    books = fields.Nested(ProductSchema, many=True, only=['name', 'desc', 'id'])
+    books = fields.Nested(PlanSchema, many=True, only=['name', 'desc', 'id'])
 
 user_schema  = UserSchema()
 users_schema = UserSchema(many=True)

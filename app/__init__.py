@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import config
-from routes.products_routes import product_routes
+from routes.plans_routes import plans_routes
 from routes.users_routes import user_routes
 # from Models.authors import db,ma
 # from Models.books import db,ma
@@ -22,7 +22,7 @@ def create_app(config_name):
     ma.init_app(app)
     with app.app_context():
          db.create_all() #creats all table from model class
-    app.register_blueprint(product_routes, url_prefix='/api/products')
+    app.register_blueprint(plans_routes, url_prefix='/api/plans')
     app.register_blueprint(user_routes, url_prefix='/api/users')
 
     
