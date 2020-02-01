@@ -8,8 +8,10 @@ from marshmallow import fields
 class Plan(db.Model):
     __tablename__ = 'plans'
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
-    name = db.Column(db.String(50))
-    desc = db.Column(db.String(200))
+    title = db.Column(db.String(50))
+    short_desc = db.Column(db.String(300))
+    time_created = db.Column(db.DateTime, server_default=db.func.now())
+    time_updated = db.Column(db.DateTime, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, name, desc, user_id=None):

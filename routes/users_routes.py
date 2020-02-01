@@ -9,7 +9,7 @@ from db import jwt
 user_routes = Blueprint("user_routes", __name__)
 
 
-@user_routes.route('', methods=['POST'])
+@user_routes.route('signup', methods=['POST'])
 def create_user():
         data = request.get_json()
         data['password'] = User.generate_hash(data['password'])
@@ -20,16 +20,13 @@ def create_user():
         return make_response(jsonify({"user": user_schema.dump(new_user)}))
 
 
-
-@user_routes.route('login', methods=['POST'])
+@user_routes.route('signin', methods=['POST'])
 def authenticate_user():
     data = request.get_json()
     current_user = User.find_by_username(data['username'])
-
     if User.verify_hash(data['password'], current_user.password):
        access_token = create_access_token(identity =data['username'])
-
-       return make_response(jsonify({"access_token": access_token}))
+       return make_response(jsonify({"access_token": access_token, "id":current_user.id}))
 
 
 @user_routes.route('', methods=['GET'])

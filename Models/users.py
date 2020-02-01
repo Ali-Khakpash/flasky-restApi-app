@@ -36,7 +36,7 @@ class UserSchema(ModelSchema):
           sqla_session = db.session
     id = fields.Number(dump_only=True)
     username = fields.String(required=True)
-    books = fields.Nested(PlanSchema, many=True, only=['name', 'desc', 'id'])
+    books = fields.Nested(PlanSchema, many=True, only=['username', 'desc', 'id'])
 
-user_schema  = UserSchema()
+user_schema  = UserSchema(only=['id', 'username'])
 users_schema = UserSchema(many=True)
