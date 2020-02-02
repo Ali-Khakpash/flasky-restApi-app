@@ -1,7 +1,8 @@
 from flask import Blueprint
-from flask import request, make_response,jsonify 
+from flask import request, make_response,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from Models.plans import Plan, db, plans_schema, paln_schema
+
 
 plans_routes = Blueprint("plans_routes", __name__)
 
@@ -12,12 +13,12 @@ def create_author():
     new_plan = Plan(data['name'], data['desc'] , data['user_id'])
     db.session.add(new_plan)
     db.session.commit()
-    result = plan_schema.dump(new_plan)
+    result = paln_schema.dump(new_plan)
     return make_response(jsonify({"plan": result}))
 
 @plans_routes.route('', methods=['GET'])
 def get_all_book():
-    all_books =  Plans.query.all()
+    all_books =  Plan.query.all()
     return make_response(jsonify({"plans": plans_schema.dump(all_books)}))
 
 
@@ -25,7 +26,7 @@ def get_all_book():
 def get_book_detail(plan_id):
     fetched = Plan.query.get_or_404(plan_id)
     plan = paln_schema.dump(fetched)
-    return make_response(jsonify({"paln": paln}))
+    return make_response(jsonify({"paln": plan}))
 
 
 plans_routes.route('/<int:plan_id>', methods=['PUT'])
@@ -37,7 +38,7 @@ def update_book_detail(plan_id):
     db.session.add(get_plan)
     db.session.commit()
 
-    plan = plan_schema.dump(get_plan)
+    plan = paln_schema.dump(get_plan)
     return make_response(jsonify({"book": plan}))
 
 
@@ -51,7 +52,7 @@ def modify_book_detail(plan_id):
         get_plan.desc = data['desc']
     db.session.add(get_plan)
     db.session.commit()
-    plan = plan_schema.dump(get_plan)
+    plan = paln_schema.dump(get_plan)
     return make_response(jsonify({"plan": plan}))
 
 

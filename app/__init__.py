@@ -4,6 +4,7 @@ from config import config
 from routes.plans_routes import plans_routes
 from routes.users_routes import user_routes
 from Models.users import User
+from Models.plans import Plan
 # from Models.authors import db,ma
 # from Models.books import db,ma
 from db import db,ma,jwt

@@ -4,22 +4,31 @@ from passlib.hash import pbkdf2_sha256 as sha256
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
-from Models.plans import Plan, plans_schema, paln_schema, PlanSchema
+from Models.groups import Group
 from login_handle import login_manager
+from flask_authorize import RestrictionsMixin, AllowancesMixin
+from flask_authorize import PermissionsMixin
 
 
-class User(UserMixin, db.Model):
+UserGroup = db.Table(
+    'user_group', db.Model.metadata,
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('group_id', db.Integer, db.ForeignKey('groups.id'))
+)
+
+
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(120), unique = True,nullable = False)
     password = db.Column(db.String(120), nullable = False)
-    plans = db.relationship('Plan', backref='user_plans', cascade="all, delete-orphan")
+    groups = db.relationship('Group', secondary=UserGroup)
 
 
-    def __init__(self, username, password, plans=[]):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.plans = plans
+
 
     @classmethod
     def find_by_username(cls, username):
@@ -38,7 +47,7 @@ class UserSchema(ModelSchema):
           sqla_session = db.session
     id = fields.Number(dump_only=True)
     username = fields.String(required=True)
-    books = fields.Nested(PlanSchema, many=True, only=['username', 'desc', 'id'])
+    #books = fields.Nested(PlanSchema, many=True, only=['username', 'desc', 'id'])
 
 user_schema  = UserSchema(only=['id', 'username'])
 users_schema = UserSchema(many=True)
