@@ -1,5 +1,7 @@
 from flask import Blueprint
 from flask import request, make_response,jsonify
+from flask_jwt_extended import jwt_required
+from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from Models.plans import Plan, db, plans_schema, paln_schema
 
@@ -7,14 +9,19 @@ from Models.plans import Plan, db, plans_schema, paln_schema
 plans_routes = Blueprint("plans_routes", __name__)
 
 
-@plans_routes.route('', methods=['POST'])
-def create_author():
-    data = request.get_json()
-    new_plan = Plan(data['name'], data['desc'] , data['user_id'])
-    db.session.add(new_plan)
-    db.session.commit()
-    result = paln_schema.dump(new_plan)
-    return make_response(jsonify({"plan": result}))
+@plans_routes.route('plans', methods=['POST','GET'])
+# @login_required
+@jwt_required
+def create_read_plan():
+    if request.method == 'POST':
+        data = request.get_json()
+        new_plan = Plan(data['title'], data['short_desc'])
+        new_plan.owner = current_user
+        db.session.add(new_plan)
+        db.session.commit()
+        result = paln_schema.dump(new_plan)
+        return make_response(jsonify({"plan": result}))
+
 
 @plans_routes.route('', methods=['GET'])
 def get_all_book():

@@ -18,11 +18,10 @@ class Plan(db.Model, PermissionsMixin):
     short_desc = db.Column(db.String(300))
     time_created = db.Column(db.DateTime, server_default=db.func.now())
     time_updated = db.Column(db.DateTime, nullable=True)
-    #user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, name, desc, user_id=None):
-        self.name = name
-        self.desc = desc
+    def __init__(self, title, short_desc, user_id=None):
+        self.title = title
+        self.short_desc = short_desc
         self.user_id = user_id
 
 

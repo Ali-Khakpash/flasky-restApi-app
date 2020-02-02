@@ -26,7 +26,7 @@ def create_app(config_name):
     ma.init_app(app)
     with app.app_context():
          db.create_all() #creats all table from model class
-    app.register_blueprint(plans_routes, url_prefix='/api/plans')
+    app.register_blueprint(plans_routes, url_prefix='/api')
     app.register_blueprint(user_routes, url_prefix='/api')
 
     @login_manager.user_loader
