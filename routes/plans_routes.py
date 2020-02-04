@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import request, make_response,jsonify
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from Models.plans import Plan, db, plans_schema, paln_schema
@@ -15,12 +15,16 @@ plans_routes = Blueprint("plans_routes", __name__)
 def create_read_plan():
     if request.method == 'POST':
         data = request.get_json()
+        curr_user = get_jwt_identity()
         new_plan = Plan(data['title'], data['short_desc'])
         new_plan.owner = current_user
+        api_key = request.headers.get('Authorization')
         db.session.add(new_plan)
         db.session.commit()
         result = paln_schema.dump(new_plan)
-        return make_response(jsonify({"plan": result}))
+        return make_response(jsonify({"plan": result , "header value":api_key,
+                                      "current_user":[curr_user,"asshole"]
+                                      }))
 
 
 @plans_routes.route('', methods=['GET'])

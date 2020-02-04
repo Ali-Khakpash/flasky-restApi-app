@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_jwt_extended import get_jwt_identity
 from flask_sqlalchemy import SQLAlchemy
 from config import config
 from routes.plans_routes import plans_routes
@@ -30,8 +31,21 @@ def create_app(config_name):
     app.register_blueprint(user_routes, url_prefix='/api')
 
     @login_manager.user_loader
-    def load_user(id):
-        return User.query.filter_by(id=id).first()
+    def load_user(curr_user):
+        curr_user = get_jwt_identity()
+        return User.query.filter_by(username=curr_user).first()
+
+    # @login_manager.request_loader
+    # def load_user_from_request(id):
+    #     curr_user = get_jwt_identity()
+    #     return User.query.filter_by(username=curr_user).first()
+
+    # @jwt.user_claims_loader
+    # def add_claims_to_access_token(identity):
+    #     return {
+    #         'hello': identity,
+    #         'foo': ['bar', 'baz']
+    #     }
 
     return app
     
