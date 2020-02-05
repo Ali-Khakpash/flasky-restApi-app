@@ -1,12 +1,34 @@
 from flask import Blueprint
 from flask import request, make_response,jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt_claims, verify_jwt_in_request
 from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from Models.plans import Plan, db, plans_schema, paln_schema
-
+from authorize import authorize
+from db import jwt
+from functools import wraps
 
 plans_routes = Blueprint("plans_routes", __name__)
+
+@jwt.user_claims_loader
+def add_claims_to_access_token(user):
+    return {'current_user_id': user.id,
+            'ass':'big'
+            }
+@jwt.user_identity_loader
+def user_identity_lookup(user):
+    return user.username
+
+def admin_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        # verify_jwt_in_request()
+        # claims = get_jwt_claims()
+        # if claims['ass'] != 'admin':
+        #     return jsonify(msg='Admins only!'), 403
+        # else:
+        return jsonify(url_id=kwargs)
+    return wrapper
 
 
 @plans_routes.route('plans', methods=['POST','GET'])
@@ -40,17 +62,29 @@ def get_book_detail(plan_id):
     return make_response(jsonify({"paln": plan}))
 
 
-plans_routes.route('/<int:plan_id>', methods=['PUT'])
+@plans_routes.route('plans/<int:plan_id>', methods=['PUT'])
+# @jwt_required
+@admin_required
 def update_book_detail(plan_id):
-    data = request.get_json()
-    get_plan = Plan.query.get_or_404(plan_id)
-    get_plan.name = data['name']
-    get_plan.desc = data['desc']
-    db.session.add(get_plan)
-    db.session.commit()
+    # data = request.get_json()
+    # plan = Plan.query.get_or_404(plan_id)
+    # plan.title = data['title']
+    # plan.short_desc= data['short_desc']
+    # if(plan.owner_id == get_jwt_claims()['userr']):
+    #     db.session.add(plan)
+    #     db.session.commit()
+    #     ret = {
+    #         'current_identity': get_jwt_identity(),
+    #         'current_roles': get_jwt_claims()['userr'],
+    #         'a.s.s': get_jwt_claims()['ass']
+    #     }
+    #
+    #     plan = paln_schema.dump(plan)
+    #     return make_response(jsonify({"plans": plan, "other info": ret}))
+    # return make_response(jsonify({"error":"unauthorized"}))
+    return make_response(jsonify({"current_roles": get_jwt_claims()}))
 
-    plan = paln_schema.dump(get_plan)
-    return make_response(jsonify({"book": plan}))
+
 
 
 @plans_routes.route('/<int:plan_id>', methods=['PATCH'])
@@ -74,6 +108,13 @@ def delete_book(plan_id):
     db.session.commit()
 
     return make_response('Deleted Successfully',204)
+
+
+
+
+
+
+
 
 
 

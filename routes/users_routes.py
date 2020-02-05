@@ -11,19 +11,6 @@ from flask_login import login_user, current_user, login_required
 user_routes = Blueprint("user_routes", __name__)
 
 
-
-@jwt.user_claims_loader
-def add_claims_to_access_token(user):
-    return {'userr': user.password,
-            'ass':'big'
-            }
-
-@jwt.user_identity_loader
-def user_identity_lookup(user):
-    return user.username
-
-
-
 @user_routes.route('signup', methods=['POST'])
 def create_user():
         data = request.get_json()
@@ -42,7 +29,7 @@ def authenticate_user():
     if user is not None:
       if User.verify_hash(data['password'], user.password):
          login_user(user)
-         access_token = create_access_token(identity =user)
+         access_token = create_access_token(user)
          return make_response(jsonify({"access_token":access_token, "currentUser":current_user.username}))
     return make_response(jsonify({"error":"ops username or password is wrong"}))
 
@@ -56,8 +43,8 @@ def protected():
         'current_identity': get_jwt_identity(),
         'current_roles': get_jwt_claims()['userr'],
         'a.s.s':get_jwt_claims()['ass']
-
     }
+
     return jsonify(ret), 200
 
 
@@ -83,3 +70,14 @@ def logout():
     jti = get_raw_jwt()['jti']
     blacklist.add(jti)
     return jsonify({"msg": "Successfully logged out"}), 200
+
+
+@jwt.user_claims_loader
+def add_claims_to_access_token(user):
+    return {'userr': user.id,
+            'ass':'big'
+            }
+
+@jwt.user_identity_loader
+def user_identity_lookup(user):
+    return user.username

@@ -12,8 +12,7 @@ from db import db,ma,jwt
 # from routes.users_routes import jwt
 from flask_authorize import Authorize
 from login_handle import login_manager
-
-authorize = Authorize()
+from authorize import authorize
 
 def create_app(config_name):
     app = Flask(__name__)
