@@ -22,19 +22,19 @@ def user_identity_lookup(user):
 def admin_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        # verify_jwt_in_request()
-        # claims = get_jwt_claims()
-        # if claims['ass'] != 'admin':
-        #     return jsonify(msg='Admins only!'), 403
-        # else:
-        return jsonify(url_id=kwargs)
+        verify_jwt_in_request()
+        claims = get_jwt_claims()
+        if claims['roles'] != 'admin':
+            return jsonify(msg='Admins only!'), 403
+        else:
+            return fn(*args, **kwargs)
     return wrapper
 
 
-@plans_routes.route('plans', methods=['POST','GET'])
+@plans_routes.route('plans', methods=['POST'])
 # @login_required
 @jwt_required
-def create_read_plan():
+def create_plan():
     if request.method == 'POST':
         data = request.get_json()
         curr_user = get_jwt_identity()
@@ -49,7 +49,7 @@ def create_read_plan():
                                       }))
 
 
-@plans_routes.route('', methods=['GET'])
+@plans_routes.route('plans', methods=['GET'])
 def get_all_book():
     all_books =  Plan.query.all()
     return make_response(jsonify({"plans": plans_schema.dump(all_books)}))
@@ -63,28 +63,19 @@ def get_book_detail(plan_id):
 
 
 @plans_routes.route('plans/<int:plan_id>', methods=['PUT'])
-# @jwt_required
-@admin_required
+@jwt_required
+#@admin_required
 def update_book_detail(plan_id):
-    # data = request.get_json()
-    # plan = Plan.query.get_or_404(plan_id)
-    # plan.title = data['title']
-    # plan.short_desc= data['short_desc']
-    # if(plan.owner_id == get_jwt_claims()['userr']):
-    #     db.session.add(plan)
-    #     db.session.commit()
-    #     ret = {
-    #         'current_identity': get_jwt_identity(),
-    #         'current_roles': get_jwt_claims()['userr'],
-    #         'a.s.s': get_jwt_claims()['ass']
-    #     }
-    #
-    #     plan = paln_schema.dump(plan)
-    #     return make_response(jsonify({"plans": plan, "other info": ret}))
-    # return make_response(jsonify({"error":"unauthorized"}))
-    return make_response(jsonify({"current_roles": get_jwt_claims()}))
-
-
+     if(check_content_permission(plan_id) == False):
+         return make_response(jsonify({"error": "unauthorized"}))
+     data = request.get_json()
+     plan_obj = check_content_permission(plan_id)
+     plan_obj.title = data['title']
+     plan_obj.short_desc= data['short_desc']
+     db.session.add(plan_obj)
+     db.session.commit()
+     plan = paln_schema.dump(plan_obj)
+     return make_response(jsonify({"plans": plan}))
 
 
 @plans_routes.route('/<int:plan_id>', methods=['PATCH'])
@@ -101,13 +92,23 @@ def modify_book_detail(plan_id):
     return make_response(jsonify({"plan": plan}))
 
 
-@plans_routes.route('/<int:plan_id>', methods=['DELETE'])
+@plans_routes.route('plans/<int:plan_id>', methods=['DELETE'])
+@jwt_required
 def delete_book(plan_id):
-    get_plan= Plan.query.get_or_404(plan_id)
-    db.session.delete(get_plan)
+    if (check_content_permission(plan_id) == False):
+        return make_response(jsonify({"error": "unauthorized"}))
+    plan_obj = check_content_permission(plan_id)
+    db.session.delete(plan_obj)
     db.session.commit()
-
     return make_response('Deleted Successfully',204)
+
+
+def check_content_permission(id):
+    plan_obj = Plan.query.get_or_404(id)
+    if (plan_obj.owner_id == get_jwt_claims()['userr']):
+        return plan_obj
+    return False
+
 
 
 
