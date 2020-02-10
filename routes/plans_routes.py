@@ -3,6 +3,9 @@ from flask import request, make_response,jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt_claims, verify_jwt_in_request
 from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
+from sqlalchemy.sql import label
+
 from Models.plans import Plan, db, plans_schema, paln_schema
 from authorize import authorize
 from db import jwt
@@ -51,8 +54,20 @@ def create_plan():
 
 @plans_routes.route('plans', methods=['GET'])
 def get_all_book():
-    all_books =  Plan.query.all()
-    return make_response(jsonify({"plans": plans_schema.dump(all_books)}))
+    #filter_by
+    #all_books =  Plan.query.filter_by(title = 'mountaining',short_desc = 'amazing')
+
+    #order_by
+    #all_books = Plan.query.order_by(Plan.time_created.desc())
+    # all_books = Plan.query.order_by(Plan.time_created.desc())
+
+    # order_by
+    all_books = db.session.query(Plan.short_desc,func.count(Plan.id)).group_by(Plan.short_desc).filter_by(title='a').all()
+    #all_books = db.session.query(func.count(Plan.id),Plan.title).group_by(Plan.title).all()
+
+
+
+    return make_response(jsonify({"plans": all_books}))
 
 
 @plans_routes.route('/<int:plan_id>', methods=['GET'])
@@ -88,6 +103,7 @@ def modify_book_detail(plan_id):
         get_plan.desc = data['desc']
     db.session.add(get_plan)
     db.session.commit()
+
     plan = paln_schema.dump(get_plan)
     return make_response(jsonify({"plan": plan}))
 
