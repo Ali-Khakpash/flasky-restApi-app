@@ -61,10 +61,17 @@ def get_all_book():
     #all_books = Plan.query.order_by(Plan.time_created.desc())
     # all_books = Plan.query.order_by(Plan.time_created.desc())
 
-    # order_by
-    all_books = db.session.query(Plan.short_desc,func.count(Plan.id)).group_by(Plan.short_desc).filter_by(title='a').all()
+    # group_by
+    #all_books = db.session.query(Plan.short_desc.label('short_desc'),func.count(Plan.id).label('number')).group_by(Plan.short_desc).all()
     #all_books = db.session.query(func.count(Plan.id),Plan.title).group_by(Plan.title).all()
 
+    #having
+    #all_books = db.session.query(Plan.title, func.count(Plan.id)).group_by(Plan.title).having(func.count(Plan.id) ==1).all()
+
+    # label
+    all_books = db.session.query(Plan.short_desc, func.count(Plan.id).label('number')).group_by(Plan.short_desc).all()
+
+    all_books = plans_schema.dump(all_books)
 
 
     return make_response(jsonify({"plans": all_books}))

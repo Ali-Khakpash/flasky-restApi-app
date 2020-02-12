@@ -29,10 +29,14 @@ class PlanSchema(ModelSchema):
     class Meta(ModelSchema.Meta):
         model = Plan
         sqla_session = db.session
-    id = fields.Number(dump_only=True)
-    name = fields.String(required=True)
-    desc = fields.String(required=True)
-    #user_id = fields.Integer()
+    #customized field
+    number = fields.Number()
+    # #customized field
+    # since_created = fields.Method("get_days_since_created")
+    #
+    # def get_days_since_created(self, obj):
+    #     return obj
 
 paln_schema = PlanSchema()
 plans_schema = PlanSchema(many=True)
+
