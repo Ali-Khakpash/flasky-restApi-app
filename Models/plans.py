@@ -1,8 +1,18 @@
 from db import db,ma
+from Models.terms_taxonomy import Terms_Taxonomy
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 from flask_authorize import PermissionsMixin
 from flask_sqlalchemy import SQLAlchemy
+
+
+PlanTaxonomy = db.Table(
+    'plan_taxonomy', db.Model.metadata,
+    db.Column('plan_id', db.Integer, db.ForeignKey('plans.id')),
+    db.Column('term_taxonomy_id', db.Integer, db.ForeignKey('terms_taxonomy.term_taxonomy_id'))
+)
+
+
 
 
 class Plan(db.Model, PermissionsMixin):
@@ -18,6 +28,8 @@ class Plan(db.Model, PermissionsMixin):
     short_desc = db.Column(db.String(300))
     time_created = db.Column(db.DateTime, server_default=db.func.now())
     time_updated = db.Column(db.DateTime, nullable=True)
+
+    plan_taxonomy = db.relationship('Terms_Taxonomy', secondary=PlanTaxonomy, backref=db.backref('term_taxonomy_plan', lazy='dynamic'))
 
     def __init__(self, title, short_desc, user_id=None):
         self.title = title
@@ -39,4 +51,6 @@ class PlanSchema(ModelSchema):
 
 paln_schema = PlanSchema()
 plans_schema = PlanSchema(many=True)
+
+
 
