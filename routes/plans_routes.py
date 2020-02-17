@@ -7,7 +7,7 @@ from sqlalchemy import func
 from sqlalchemy.sql import label
 
 from Models.plans import Plan, db, plans_schema, paln_schema
-from Models.terms import Terms
+from Models.terms import Terms, terms_schema
 from Models.terms_taxonomy import Terms_Taxonomy
 from authorize import authorize
 from db import jwt
@@ -136,11 +136,15 @@ def create_catogory():
         db.session.add(term)
         db.session.commit()
 
-        term_taxonomy = Terms_Taxonomy(term.term_id, 'category')
+        term_taxonomy = Terms_Taxonomy(term.term_id, 'tag')
         db.session.add(term_taxonomy)
         db.session.commit()
 
-    category_list = db.session.query(Plan.title, func.count(Plan.id)).group_by(Plan.title).having(func.count(Plan.id) ==1).all()
+    #term_list = Terms.query.all()
+    # return make_response(jsonify({"term_list": terms_schema.dump(term_list)}))
+    term_list = Terms.query.all()
+    category_list = db.session.query(Terms,Terms_Taxonomy).filter(Terms.term_id == Terms_Taxonomy.term_id).all()
+    return make_response(repr(type(category_list)))
 
 
 
