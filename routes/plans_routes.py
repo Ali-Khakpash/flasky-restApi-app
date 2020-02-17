@@ -7,6 +7,8 @@ from sqlalchemy import func
 from sqlalchemy.sql import label
 
 from Models.plans import Plan, db, plans_schema, paln_schema
+from Models.terms import Terms
+from Models.terms_taxonomy import Terms_Taxonomy
 from authorize import authorize
 from db import jwt
 from functools import wraps
@@ -124,6 +126,27 @@ def delete_book(plan_id):
     db.session.delete(plan_obj)
     db.session.commit()
     return make_response('Deleted Successfully',204)
+
+
+@plans_routes.route('plans/category', methods=['POST','GET'])
+def create_catogory():
+    if request.method == 'POST':
+        data = request.get_json()
+        term = Terms(data['category'])
+        db.session.add(term)
+        db.session.commit()
+
+        term_taxonomy = Terms_Taxonomy(term.term_id, 'category')
+        db.session.add(term_taxonomy)
+        db.session.commit()
+
+    category_list = db.session.query(Plan.title, func.count(Plan.id)).group_by(Plan.title).having(func.count(Plan.id) ==1).all()
+
+
+
+
+
+
 
 
 def check_content_permission(id):
