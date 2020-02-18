@@ -1,5 +1,5 @@
 from db import db,ma
-from Models.terms_taxonomy import Terms_Taxonomy
+from Models.terms_taxonomy import Terms_Taxonomy, TermsTaxonomySchema
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 
@@ -17,6 +17,8 @@ class TermsSchema(ModelSchema):
     class Meta(ModelSchema.Meta):
         model = Terms
         sqla_session = db.session
+
+    terms_taxonomies = fields.Nested(TermsTaxonomySchema, many=True, only=['taxonomy', 'parent'])
 
 term_schema = TermsSchema()
 terms_schema = TermsSchema(many=True)

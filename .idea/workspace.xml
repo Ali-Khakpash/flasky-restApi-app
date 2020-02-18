@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ed9ebb66-2f31-4a22-ab7e-b8c2ccbac340" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/groups.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/groups.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/terms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/terms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/terms_taxonomy.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/terms_taxonomy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authorize.py" beforeDir="false" afterPath="$PROJECT_DIR$/authorize.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/plans_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/plans_routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

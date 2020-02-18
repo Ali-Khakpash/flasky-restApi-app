@@ -3,6 +3,7 @@ from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, BIGINT
 
+
 class Terms_Taxonomy(db.Model):
     __tablename__ = 'terms_taxonomy'
     #when defining ForeignKey, the type of 2 columns must be the same.
@@ -21,6 +22,7 @@ class TermsTaxonomySchema(ModelSchema):
     class Meta(ModelSchema.Meta):
         model = Terms_Taxonomy
         sqla_session = db.session
+
 
 term_taxonomy_schema = TermsTaxonomySchema()
 terms_taxonomy_schema = TermsTaxonomySchema(many=True)
