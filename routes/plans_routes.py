@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from flask import Blueprint
 from flask import request, make_response,jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt_claims, verify_jwt_in_request
@@ -9,7 +11,7 @@ from sqlalchemy.sql import label
 
 from Models.plans import Plan, db, plans_schema, paln_schema
 from Models.terms import Terms, terms_schema
-from Models.terms_taxonomy import Terms_Taxonomy
+from Models.terms_taxonomy import Terms_Taxonomy, terms_taxonomy_schema,term_taxonomy_schema
 from authorize import authorize
 from db import jwt
 from functools import wraps
@@ -53,14 +55,18 @@ def create_plan():
         category_oject = db.session.query(Terms).\
             filter_by(name=data['category']).\
             join(Terms.terms_taxonomies).\
-            filter(Terms_Taxonomy.taxonomy == 'category').one()
+            filter(Terms_Taxonomy.taxonomy == 'category')
         category = terms_schema.dump(category_oject)
+
+        #category_oject.term_taxonomy_plan.append(new_plan)
+        term_taxo = Terms_Taxonomy.query.get(category[0]['term_id'])
+        term_taxo.term_taxonomy_plan.append(new_plan)
 
         # taxonomy = Terms_Taxonomy.query.get(1)
         # taxonomy.term_taxonomy_plan.append(new_plan_2)
         # category_oject.term_taxonomy_plan.append(new_plan)
-        # db.session.add(new_plan)
-        # db.session.commit()
+        db.session.add(new_plan)
+        db.session.commit()
         result = paln_schema.dump(new_plan)
         return make_response(jsonify({"plan": result , "header value":api_key,
                                       "current_user":[curr_user,"asshole"],
@@ -180,7 +186,26 @@ def create_catogory():
     # return make_response(jsonify({"term_list": terms_schema.dump(category_list)}))
 
 
+@plans_routes.route('plans/plans_of_category', methods=['POST'])
+def list_plans_of_category():
+    data = request.get_json()
+    category_oject = db.session.query(Terms). \
+        filter_by(name=data['category']). \
+        join(Terms.terms_taxonomies). \
+        filter(Terms_Taxonomy.taxonomy == 'category').first()
 
+    category_id = Terms_Taxonomy.query.get(category_oject.term_id).term_taxonomy_id
+    # two below queries work
+    plansofcategory = Plan.query.join(Terms_Taxonomy.term_taxonomy_plan).filter(Terms_Taxonomy.term_id == category_id).all()
+    plansofcategory = db.session.query(Plan).\
+        join(Terms_Taxonomy.term_taxonomy_plan).\
+        filter(Terms_Taxonomy.term_id == category_id).all()
+    return make_response(jsonify({"plans_of_category": plans_schema.dump(plansofcategory)}))
+
+
+    #return make_response(jsonify({"plans_of_category": TermsTaxonomySchema.dump(term_taxo)}))
+    #return make_response(jsonify({"plans_of_category": category_oject.term_id}))
+    #return make_response(jsonify({"plans_of_category": category_id}))
 
 
 

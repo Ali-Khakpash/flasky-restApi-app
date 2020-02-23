@@ -24,5 +24,6 @@ class TermsTaxonomySchema(ModelSchema):
         sqla_session = db.session
 
 
+
 term_taxonomy_schema = TermsTaxonomySchema()
 terms_taxonomy_schema = TermsTaxonomySchema(many=True)
