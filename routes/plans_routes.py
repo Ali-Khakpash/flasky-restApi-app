@@ -5,7 +5,7 @@ from flask import request, make_response,jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt_claims, verify_jwt_in_request
 from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func, select
+from sqlalchemy import func, select, join
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import label
 
@@ -48,29 +48,27 @@ def create_plan():
         curr_user = get_jwt_identity()
         new_plan = Plan(data['title'], data['short_desc'])
         new_plan.owner = current_user
-        api_key = request.headers.get('Authorization')
 
-        new_plan_2 = Plan.query.get(2)
+        # category_oject = db.session.query(Terms).\
+        #     filter_by(name=data['category']).\
+        #     join(Terms.terms_taxonomies).\
+        #     filter(Terms_Taxonomy.taxonomy == 'category')
+        # category = terms_schema.dump(category_oject)
 
-        category_oject = db.session.query(Terms).\
-            filter_by(name=data['category']).\
-            join(Terms.terms_taxonomies).\
-            filter(Terms_Taxonomy.taxonomy == 'category')
-        category = terms_schema.dump(category_oject)
+        length = len(data['category'])
+        for i in range(length):
+            category_oject = Terms.query.filter_by(name=data['category'][i]). \
+                join(Terms.terms_taxonomies). \
+                filter(Terms_Taxonomy.taxonomy == 'category').first()
 
-        #category_oject.term_taxonomy_plan.append(new_plan)
-        term_taxo = Terms_Taxonomy.query.get(category[0]['term_id'])
-        term_taxo.term_taxonomy_plan.append(new_plan)
+            term_taxo = Terms_Taxonomy.query.get(category_oject.term_id)
+            term_taxo.term_taxonomy_plan.append(new_plan)
 
-        # taxonomy = Terms_Taxonomy.query.get(1)
-        # taxonomy.term_taxonomy_plan.append(new_plan_2)
-        # category_oject.term_taxonomy_plan.append(new_plan)
         db.session.add(new_plan)
         db.session.commit()
         result = paln_schema.dump(new_plan)
-        return make_response(jsonify({"plan": result , "header value":api_key,
-                                      "current_user":[curr_user,"asshole"],
-                                      "catogory":category[0]['term_id']
+        return make_response(jsonify({"plan": result ,
+                                      "current_user":[curr_user,"asshole"]
                                       }))
 
 
@@ -199,8 +197,12 @@ def list_plans_of_category():
     plansofcategory = Plan.query.join(Terms_Taxonomy.term_taxonomy_plan).filter(Terms_Taxonomy.term_id == category_id).all()
     plansofcategory = db.session.query(Plan).\
         join(Terms_Taxonomy.term_taxonomy_plan).\
-        filter(Terms_Taxonomy.term_id == category_id).all()
-    return make_response(jsonify({"plans_of_category": plans_schema.dump(plansofcategory)}))
+        filter(Terms_Taxonomy.term_id == category_id)
+
+
+    #Pagination
+    paginated_obj = plansofcategory.paginate(1, 1, False).items
+    return make_response(jsonify({"plans_of_category": plans_schema.dump(paginated_obj)}))
 
 
     #return make_response(jsonify({"plans_of_category": TermsTaxonomySchema.dump(term_taxo)}))
