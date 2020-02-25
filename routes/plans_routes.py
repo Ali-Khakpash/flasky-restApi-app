@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, select, join
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import label
+from config import config
 
 from Models.plans import Plan, db, plans_schema, paln_schema
 from Models.terms import Terms, terms_schema
@@ -184,7 +185,7 @@ def create_catogory():
     # return make_response(jsonify({"term_list": terms_schema.dump(category_list)}))
 
 
-@plans_routes.route('plans/plans_of_category', methods=['POST'])
+@plans_routes.route('plans_of_category', methods=['POST'])
 def list_plans_of_category():
     data = request.get_json()
     category_oject = db.session.query(Terms). \
@@ -201,8 +202,9 @@ def list_plans_of_category():
 
 
     #Pagination
-    paginated_obj = plansofcategory.paginate(1, 1, False).items
-    return make_response(jsonify({"plans_of_category": plans_schema.dump(paginated_obj)}))
+    page = request.args.get('page', 1, type=int)
+    paginated_obj = plansofcategory.paginate(page, config['development'].POSTS_PER_PAGE, False)
+    return make_response(jsonify({"plans_of_category": plans_schema.dump(paginated_obj.items),"page":page,"total":paginated_obj.pages, "number of next page":paginated_obj.next_num}))
 
 
     #return make_response(jsonify({"plans_of_category": TermsTaxonomySchema.dump(term_taxo)}))
