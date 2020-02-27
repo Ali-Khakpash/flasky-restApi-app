@@ -11,6 +11,7 @@ from sqlalchemy.sql import label
 from config import config
 
 from Models.plans import Plan, db, plans_schema, paln_schema
+from Models.users import User
 from Models.terms import Terms, terms_schema
 from Models.terms_taxonomy import Terms_Taxonomy, terms_taxonomy_schema,term_taxonomy_schema
 from authorize import authorize
@@ -212,6 +213,25 @@ def list_plans_of_category():
     #return make_response(jsonify({"plans_of_category": category_id}))
 
 
+
+@plans_routes.route('plans_of_category_single_user', methods=['GET'])
+@jwt_required
+def list_plans_of_category_single_user():
+    user_obj = User.query.filter(User.username == get_jwt_identity()).first()
+
+    plans_of_a_single_user = db.session.query(Plan).\
+        filter(Plan.owner_id == user_obj.id).all()
+
+    category_list = plans_schema.dump(plans_of_a_single_user)
+    mylist = []
+    for obj in category_list:
+        for pt in obj['plan_taxonomy']:
+            term_taxo = Terms_Taxonomy.query.get(pt)
+            cat_obj = Terms.query.get(term_taxo.term_id)
+            mylist.append(cat_obj.name)
+
+    return make_response(jsonify({"plans_of_category_single_user":
+           plans_schema.dump(plans_of_a_single_user), "list_of_categories":list(dict.fromkeys(mylist))}))
 
 
 
