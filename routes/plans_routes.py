@@ -23,7 +23,7 @@ plans_routes = Blueprint("plans_routes", __name__)
 @jwt.user_claims_loader
 def add_claims_to_access_token(user):
     return {'current_user_id': user.id,
-            'ass':'big'
+            'ass':'bigass'
             }
 @jwt.user_identity_loader
 def user_identity_lookup(user):

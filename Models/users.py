@@ -22,13 +22,15 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(120), unique = True,nullable = False)
     password = db.Column(db.String(120), nullable = False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    isVerified = db.Column(db.Boolean, nullable=False, default=False)
     groups = db.relationship('Group', secondary=UserGroup)
 
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, email):
         self.username = username
         self.password = password
-
+        self.email = email
 
     @classmethod
     def find_by_username(cls, username):
@@ -47,7 +49,8 @@ class UserSchema(ModelSchema):
           sqla_session = db.session
     id = fields.Number(dump_only=True)
     username = fields.String(required=True)
+    email = fields.String(required=True)
     #books = fields.Nested(PlanSchema, many=True, only=['username', 'desc', 'id'])
 
-user_schema  = UserSchema(only=['id', 'username'])
+user_schema  = UserSchema(only=['id', 'username', 'email'])
 users_schema = UserSchema(many=True)

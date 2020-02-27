@@ -15,6 +15,7 @@ from db import db,ma,jwt
 from flask_authorize import Authorize
 from login_handle import login_manager
 from authorize import authorize
+from services.email_verification.email import mail
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -26,6 +27,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     authorize.init_app(app)
     ma.init_app(app)
+    mail.init_app(app)
     with app.app_context():
          db.create_all() #creats all table from model class
     app.register_blueprint(plans_routes, url_prefix='/api')

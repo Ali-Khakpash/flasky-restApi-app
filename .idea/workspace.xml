@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ed9ebb66-2f31-4a22-ab7e-b8c2ccbac340" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/plans.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/plans.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/plans_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/plans_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users_routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +37,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -90,7 +93,9 @@
       <workItem from="1582438274125" duration="11074000" />
       <workItem from="1582524201203" duration="7549000" />
       <workItem from="1582643120656" duration="8327000" />
-      <workItem from="1582784067133" duration="3672000" />
+      <workItem from="1582784067133" duration="8907000" />
+      <workItem from="1582797711839" duration="3393000" />
+      <workItem from="1582801833604" duration="8340000" />
     </task>
     <servers />
   </component>
@@ -106,6 +111,10 @@
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="428" y="124" width="800" height="677" key="#Notifications/67.27.1533.873@67.27.1533.873" timestamp="1576929389704" />
+    <state x="174" y="54" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582801447156">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="174" y="54" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1299.741@67.27.1299.741" timestamp="1582801447156" />
     <state x="449" y="145" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580312075320">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
@@ -114,14 +123,14 @@
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="616" y="220" width="424" height="484" key="FileChooserDialogImpl/67.27.1533.873@67.27.1533.873" timestamp="1578200754780" />
-    <state x="205" y="31" key="SettingsEditor" timestamp="1580314042139">
+    <state x="205" y="31" key="SettingsEditor" timestamp="1582801737552">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="205" y="31" key="SettingsEditor/67.27.1299.741@67.27.1299.741" timestamp="1580314042139" />
-    <state x="425" y="250" key="com.intellij.ide.util.TipDialog" timestamp="1582784092189">
+    <state x="205" y="31" key="SettingsEditor/67.27.1299.741@67.27.1299.741" timestamp="1582801737552" />
+    <state x="425" y="250" key="com.intellij.ide.util.TipDialog" timestamp="1582801854862">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="425" y="250" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1582784092189" />
+    <state x="425" y="250" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1582801854862" />
     <state x="489" y="290" key="com.intellij.ide.util.TipDialog/67.27.1533.873@67.27.1533.873" timestamp="1582524205632" />
     <state x="431" y="96" width="672" height="574" key="search.everywhere.popup" timestamp="1582560672281">
       <screen x="67" y="27" width="1299" height="741" />
