@@ -1,3 +1,4 @@
+from astroid.bases import manager
 from flask import Flask
 from flask_jwt_extended import get_jwt_identity
 from flask_sqlalchemy import SQLAlchemy
@@ -16,6 +17,10 @@ from flask_authorize import Authorize
 from login_handle import login_manager
 from authorize import authorize
 from services.email_verification.email import mail
+from flask_migrate import Migrate
+
+migrate = Migrate()
+
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -28,6 +33,8 @@ def create_app(config_name):
     authorize.init_app(app)
     ma.init_app(app)
     mail.init_app(app)
+    migrate.init_app(app,db)
+
     with app.app_context():
          db.create_all() #creats all table from model class
     app.register_blueprint(plans_routes, url_prefix='/api')

@@ -1,3 +1,6 @@
+from flask import current_app
+from flask_migrate import Migrate
+
 from db import db,ma
 from flask_login import UserMixin
 from passlib.hash import pbkdf2_sha256 as sha256
@@ -23,6 +26,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(120), unique = True,nullable = False)
     password = db.Column(db.String(120), nullable = False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    #asshole = db.Column(db.String(120), unique=True, nullable=False)
     isVerified = db.Column(db.Boolean, nullable=False, default=False)
     groups = db.relationship('Group', secondary=UserGroup)
 
