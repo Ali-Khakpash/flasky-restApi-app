@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed9ebb66-2f31-4a22-ab7e-b8c2ccbac340" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/flasky-restApi-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flasky-restApi-app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/plans.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/plans.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authorize.py" beforeDir="false" afterPath="$PROJECT_DIR$/authorize.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/4fb8f388bd48_.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/715b747e0df8_.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/plans_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/plans_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users_routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,6 +107,9 @@
       <workItem from="1582801833604" duration="8340000" />
       <workItem from="1583133419835" duration="14226000" />
       <workItem from="1583215528307" duration="597000" />
+      <workItem from="1583529643261" duration="5870000" />
+      <workItem from="1583566017239" duration="747000" />
+      <workItem from="1583567590160" duration="11293000" />
     </task>
     <servers />
   </component>
@@ -109,10 +125,10 @@
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="428" y="124" width="800" height="677" key="#Notifications/67.27.1533.873@67.27.1533.873" timestamp="1576929389704" />
-    <state x="174" y="54" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582801447156">
+    <state x="174" y="54" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583484138099">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="174" y="54" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1299.741@67.27.1299.741" timestamp="1582801447156" />
+    <state x="174" y="54" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1299.741@67.27.1299.741" timestamp="1583484138099" />
     <state x="449" y="145" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580312075320">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
@@ -125,15 +141,15 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="205" y="31" key="SettingsEditor/67.27.1299.741@67.27.1299.741" timestamp="1582801737552" />
-    <state x="489" y="290" key="com.intellij.ide.util.TipDialog" timestamp="1583215527050">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="425" y="250" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1582801854862" />
-    <state x="489" y="290" key="com.intellij.ide.util.TipDialog/67.27.1533.873@67.27.1533.873" timestamp="1583215527050" />
-    <state x="431" y="96" width="672" height="574" key="search.everywhere.popup" timestamp="1582560672281">
+    <state x="425" y="250" key="com.intellij.ide.util.TipDialog" timestamp="1583567636395">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="431" y="96" width="672" height="574" key="search.everywhere.popup/67.27.1299.741@67.27.1299.741" timestamp="1582560672281" />
+    <state x="425" y="250" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1583567636395" />
+    <state x="489" y="290" key="com.intellij.ide.util.TipDialog/67.27.1533.873@67.27.1533.873" timestamp="1583215527050" />
+    <state x="431" y="96" width="672" height="574" key="search.everywhere.popup" timestamp="1583532536357">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="431" y="96" width="672" height="574" key="search.everywhere.popup/67.27.1299.741@67.27.1299.741" timestamp="1583532536357" />
     <state x="497" y="108" width="672" height="676" key="search.everywhere.popup/67.27.1533.873@67.27.1533.873" timestamp="1581325181111" />
     <state x="483" y="323" width="492" height="166" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1582555171917">
       <screen x="67" y="27" width="1299" height="741" />

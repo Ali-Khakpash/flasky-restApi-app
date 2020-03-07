@@ -11,6 +11,7 @@ from Models.groups import Group
 from login_handle import login_manager
 from flask_authorize import RestrictionsMixin, AllowancesMixin
 from flask_authorize import PermissionsMixin
+from Models.roles import Role
 
 
 UserGroup = db.Table(
@@ -19,15 +20,22 @@ UserGroup = db.Table(
     db.Column('group_id', db.Integer, db.ForeignKey('groups.id'))
 )
 
+UserRole = db.Table(
+    'user_role', db.Model.metadata,
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('role_id', db.Integer, db.ForeignKey('roles.id'))
+)
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(120), unique = True,nullable = False)
     password = db.Column(db.String(120), nullable = False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=False, nullable=False)
     #asshole = db.Column(db.String(120), unique=True, nullable=False)
     isVerified = db.Column(db.Boolean, nullable=False, default=False)
+    roles = db.relationship('Role', secondary=UserRole, backref=db.backref('user_role', lazy='dynamic'))
     groups = db.relationship('Group', secondary=UserGroup)
 
 

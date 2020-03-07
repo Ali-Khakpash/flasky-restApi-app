@@ -2,7 +2,7 @@ from db import db,ma
 from Models.terms_taxonomy import Terms_Taxonomy, TermsTaxonomySchema
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
-from flask_authorize import PermissionsMixin
+from flask_authorize import OwnerPermissionsMixin
 from flask_sqlalchemy import SQLAlchemy
 from Models.terms import TermsSchema
 
@@ -16,13 +16,10 @@ PlanTaxonomy = db.Table(
 
 
 
-class Plan(db.Model, PermissionsMixin):
+class Plan(db.Model, OwnerPermissionsMixin):
     __tablename__ = 'plans'
     __permissions__ = dict(
         owner=['read', 'update', 'delete', 'revoke'],
-        # group=['read', 'update'],
-        group=['read', 'update'],
-        other=['read']
     )
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     title = db.Column(db.String(50))

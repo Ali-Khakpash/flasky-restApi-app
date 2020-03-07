@@ -1,13 +1,17 @@
 from flask import Blueprint
 from flask import request, make_response,jsonify, url_for, render_template_string
+import json
 from flask_sqlalchemy import SQLAlchemy
 from Models.users import User,db,users_schema,user_schema
 from flask_jwt_extended import create_access_token, jwt_required, get_raw_jwt, jwt_optional, get_jwt_identity, \
     get_jwt_claims
+
+from authorize import authorize
 from db import jwt
 from flask_login import login_user, current_user, login_required
 from services.email_verification.token import generate_email_token, decode_token
 from services.email_verification.email import send_email
+from Models.roles import Role
 
 
 user_routes = Blueprint("user_routes", __name__)
@@ -19,7 +23,7 @@ def create_user():
         data['password'] = User.generate_hash(data['password'])
         new_user = User(data['username'], data['password'], data['email'])
         token = generate_email_token(data['email'])
-        # new_author.updated = '2020-12-07 09:41:58'
+
         db.session.add(new_user)
         db.session.commit()
 
@@ -53,6 +57,30 @@ def verify_user():
             user.isVerified = True
             return make_response('Your Account Has Been Activated')
         return make_response('Ops Error')
+
+
+@user_routes.route('add_role', methods=['POST'])
+@jwt_required
+@authorize.has_role('SUPER_ADMIN')
+def add_role():
+    data = request.get_json()
+    role_delete = Role(data['role_name'])
+    role_delete.allowances = data['allowances']
+    db.session.add(role_delete)
+    db.session.commit()
+    return make_response('Role Has Been Added')
+
+
+@user_routes.route('assign_role', methods=['POST'])
+@jwt_required
+@authorize.has_role('SUPER_ADMIN')
+def assign_role():
+    data = request.get_json()
+    user = User.query.filter_by(email=data['email']).first()
+    role = Role.query.filter_by(name = data['role']).first()
+    role.user_role.append(user)
+    return make_response('Role Has Been Assigned')
+
 
 
 

@@ -1,6 +1,6 @@
 from astroid.bases import manager
 from flask import Flask
-from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, get_current_user, verify_jwt_in_request
 from flask_sqlalchemy import SQLAlchemy
 from config import config
 from routes.plans_routes import plans_routes
@@ -45,17 +45,4 @@ def create_app(config_name):
         curr_user = get_jwt_identity()
         return User.query.filter_by(username=curr_user).first()
 
-    # @login_manager.request_loader
-    # def load_user_from_request(id):
-    #     curr_user = get_jwt_identity()
-    #     return User.query.filter_by(username=curr_user).first()
-
-    # @jwt.user_claims_loader
-    # def add_claims_to_access_token(identity):
-    #     return {
-    #         'hello': identity,
-    #         'foo': ['bar', 'baz']
-    #     }
-
     return app
-    
