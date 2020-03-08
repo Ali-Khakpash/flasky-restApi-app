@@ -1,3 +1,4 @@
+import json
 from pprint import pprint
 
 import login as login
@@ -96,11 +97,27 @@ def get_all_book():
     return make_response(jsonify({"plans": all_books}))
 
 
-@plans_routes.route('/<int:plan_id>', methods=['GET'])
-def get_book_detail(plan_id):
-    fetched = Plan.query.get_or_404(plan_id)
-    plan = paln_schema.dump(fetched)
-    return make_response(jsonify({"paln": plan}))
+@plans_routes.route('plans/<int:id>', methods=['GET'])
+def get_single_plan(id):
+    plan = Plan.query.get_or_404(id)
+    plan = paln_schema.dump(plan)
+
+    #separating tag and category from taxonomy response
+    total_taxonomy = plan['plan_taxonomy']
+    count = len(total_taxonomy)
+    tag_list = []
+    category_list = []
+
+    for i in range(count):
+        taxonomy = total_taxonomy[i]['taxonomy']
+        single_dict = total_taxonomy[i]
+        if (taxonomy == 'category'):
+            category_list.append(single_dict)
+        if (taxonomy == 'tag'):
+            tag_list.append(single_dict)
+
+    return make_response(jsonify({"plan": plan, "cats":category_list, "tags":tag_list}))
+
 
 
 @plans_routes.route('plans/<int:id>', methods=['PUT'])
@@ -248,3 +265,21 @@ def update_the_plan(id):
         raise Unauthorized
     return
 
+
+
+@plans_routes.route('divide_json', methods=['GET'])
+def divide_json():
+    data = request.get_json()
+    count= len(data['plan']['plan_taxonomy'])
+    tag_list = []
+    category_list = []
+
+    for i in range(count):
+        taxonomy = data['plan']['plan_taxonomy'][i]['taxonomy']
+        total = data['plan']['plan_taxonomy'][i]
+        if (taxonomy == 'category'):
+            category_list.append(total)
+        if (taxonomy == 'tag'):
+            tag_list.append(total)
+
+    return jsonify(tags = tag_list, cats = category_list )

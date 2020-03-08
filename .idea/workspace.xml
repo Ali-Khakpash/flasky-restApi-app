@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed9ebb66-2f31-4a22-ab7e-b8c2ccbac340" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/flasky-restApi-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flasky-restApi-app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/plans.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/plans.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authorize.py" beforeDir="false" afterPath="$PROJECT_DIR$/authorize.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/4fb8f388bd48_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/715b747e0df8_.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/plans_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/plans_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +97,8 @@
       <workItem from="1583215528307" duration="597000" />
       <workItem from="1583529643261" duration="5870000" />
       <workItem from="1583566017239" duration="747000" />
-      <workItem from="1583567590160" duration="11293000" />
+      <workItem from="1583567590160" duration="17330000" />
+      <workItem from="1583681167625" duration="6166000" />
     </task>
     <servers />
   </component>
@@ -141,10 +130,10 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="205" y="31" key="SettingsEditor/67.27.1299.741@67.27.1299.741" timestamp="1582801737552" />
-    <state x="425" y="250" key="com.intellij.ide.util.TipDialog" timestamp="1583567636395">
+    <state x="425" y="250" key="com.intellij.ide.util.TipDialog" timestamp="1583681169063">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="425" y="250" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1583567636395" />
+    <state x="425" y="250" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1583681169063" />
     <state x="489" y="290" key="com.intellij.ide.util.TipDialog/67.27.1533.873@67.27.1533.873" timestamp="1583215527050" />
     <state x="431" y="96" width="672" height="574" key="search.everywhere.popup" timestamp="1583532536357">
       <screen x="67" y="27" width="1299" height="741" />

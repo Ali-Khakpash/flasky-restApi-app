@@ -5,6 +5,7 @@ from marshmallow import fields
 from flask_authorize import OwnerPermissionsMixin
 from flask_sqlalchemy import SQLAlchemy
 from Models.terms import TermsSchema
+from Models.terms_taxonomy import TermsTaxonomySchema
 
 
 PlanTaxonomy = db.Table(
@@ -46,7 +47,7 @@ class PlanSchema(ModelSchema):
     #
     # def get_days_since_created(self, obj):
     #     return obj
-    #plan_taxonomy = fields.Nested(TermsSchema, many=True, only=['name'])
+    plan_taxonomy = fields.Nested(TermsTaxonomySchema, many=True, only=['term_taxonomy_id','taxonomy'])
 
 paln_schema = PlanSchema()
 plans_schema = PlanSchema(many=True)
