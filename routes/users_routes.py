@@ -12,6 +12,7 @@ from flask_login import login_user, current_user, login_required
 from services.email_verification.token import generate_email_token, decode_token
 from services.email_verification.email import send_email
 from Models.roles import Role
+from services.validator.signup import SignUp
 
 
 user_routes = Blueprint("user_routes", __name__)
@@ -20,19 +21,29 @@ user_routes = Blueprint("user_routes", __name__)
 @user_routes.route('signup', methods=['POST'])
 def create_user():
         data = request.get_json()
-        data['password'] = User.generate_hash(data['password'])
-        new_user = User(data['username'], data['password'], data['email'])
-        token = generate_email_token(data['email'])
+        validator = SignUp(data)
+        if(validator.is_valid()):
+            if(validator.check_password(data['password'])):
+                if(validator.unique_fields(data)):
+                    data['password'] = User.generate_hash(data['password'])
+                    new_user = User(data['username'], data['password'], data['email'])
+                    token = generate_email_token(data['email'])
 
-        db.session.add(new_user)
-        db.session.commit()
+                    db.session.add(new_user)
+                    db.session.commit()
 
-        url_conf = url_for('user_routes.verify_user', token=token, _external=True)
-        html = render_template_string("<p> Welcome Thanks for Signing up. "
-                                      "Please Follow The Below Link To Activate Your Account."
-                                      "</p><br><p> <a href='{{url_conf}}'> {{url_conf}} </a> </p>", url_conf=url_conf)
-        send_email(new_user.email, 'Email Verification', html)
-        return make_response(jsonify({"user": user_schema.dump(new_user), "tokend_email":token, 'url_for':url_conf}))
+                    url_conf = url_for('user_routes.verify_user', token=token, _external=True)
+                    html = render_template_string("<p> Welcome Thanks for Signing up. "
+                                                  "Please Follow The Below Link To Activate Your Account."
+                                                  "</p><br><p> <a href='{{url_conf}}'> {{url_conf}} </a> </p>", url_conf=url_conf)
+                    send_email(new_user.email, 'Email Verification', html)
+                    return make_response(jsonify({"message":"To complete your registration, please click the link we've sent to your email.", "user": user_schema.dump(new_user), "tokend_email":token, 'url_for':url_conf})), 200
+
+                return make_response((jsonify({"errors": {"unique_fields": "user with this username or email exists"}}))), 422
+
+            return make_response((jsonify({"errors":{"password_error":"password must contain at least 6 characters, one uppercase letter, and one letter"}}))), 422
+
+        return make_response(jsonify({"errors":validator.iter_errors()})), 422
 
 
 @user_routes.route('signin', methods=['POST'])
