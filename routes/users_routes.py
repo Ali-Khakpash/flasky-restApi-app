@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask import request, make_response,jsonify, url_for, render_template_string
+from flask import flash, redirect, render_template
 import json
 from flask_sqlalchemy import SQLAlchemy
 from Models.users import User,db,users_schema,user_schema
@@ -26,7 +27,7 @@ def create_user():
             if(validator.check_password(data['password'])):
                 if(validator.unique_fields(data)):
                     data['password'] = User.generate_hash(data['password'])
-                    new_user = User(data['username'], data['password'], data['email'])
+                    new_user = User(data['email'], data['password'])
                     token = generate_email_token(data['email'])
 
                     db.session.add(new_user)
@@ -142,3 +143,4 @@ def add_claims_to_access_token(user):
 @jwt.user_identity_loader
 def user_identity_lookup(user):
     return user.username
+

@@ -11,7 +11,7 @@ from Models.users import User
 
 class SignUp(ValidatorInterface):
 
-    typeExpected = {'username': str, 'password': str, 'email': str}
+    typeExpected = {'email': str, 'password': str}
 
     def __init__(self, data):
         self.data = data
@@ -44,10 +44,9 @@ class SignUp(ValidatorInterface):
 
 
     def unique_fields(self, data):
-        user_by_username = User.query.filter_by(username=data['username']).first()
         user_by_email = User.query.filter_by(email=data['email']).first()
 
-        if not (user_by_username or user_by_email):
+        if not (user_by_email):
             return True
         return False
 
