@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask import request, make_response,jsonify, url_for, render_template_string
+from flask import redirect, request, make_response,jsonify, url_for, render_template_string
 from flask import flash, redirect, render_template
 import json
 from flask_sqlalchemy import SQLAlchemy
@@ -50,14 +50,17 @@ def create_user():
 @user_routes.route('signin', methods=['POST'])
 def authenticate_user():
     data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
-    if user is not None:
+    user = User.query.filter_by(email=data['email']).first()
+    if (user):
       if User.verify_hash(data['password'], user.password) and user.isVerified:
          login_user(user)
          access_token = create_access_token(user)
-         return make_response(jsonify({"access_token":access_token, "currentUser":current_user.username}))
-      return make_response(jsonify({"error": "Please Verify Your Account"}))
-    return make_response(jsonify({"error":"ops username or password is wrong"}))
+         return make_response(jsonify({"access_token":access_token, "currentUser":current_user.email})), 200
+
+      elif(User.verify_hash(data['password'], user.password) and not user.isVerified):
+         return make_response(jsonify({"error": "Please Verify Your Account"})), 422
+
+    return make_response(jsonify({"error":"ops email or password is wrong"})), 401
 
 
 
@@ -67,7 +70,7 @@ def verify_user():
         user = User.query.filter_by(email=email).first()
         if(user):
             user.isVerified = True
-            return make_response('Your Account Has Been Activated')
+            return redirect('http://127.0.0.1:5060/home', 302)
         return make_response('Ops Error')
 
 
@@ -142,5 +145,5 @@ def add_claims_to_access_token(user):
 
 @jwt.user_identity_loader
 def user_identity_lookup(user):
-    return user.username
+    return user.email
 
