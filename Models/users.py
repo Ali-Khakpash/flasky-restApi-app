@@ -32,6 +32,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=False, nullable=False)
     isVerified = db.Column(db.Boolean, nullable=False, default=False)
     full_name = db.Column(db.String(120), unique=False, nullable=True)
+    age = db.Column(db.Integer, unique=False, nullable=True)
     location = db.Column(db.String(120), unique=False, nullable=True)
     phone_number = db.Column(db.String(120), unique=False, nullable=True)
     social_media_accounts = db.Column(db.String(120), unique=False, nullable=True)
@@ -64,6 +65,7 @@ class UserSchema(ModelSchema):
     id = fields.Number(dump_only=True)
     email = fields.String(required=True)
     full_name = fields.String(dump_only=True)
+    age = fields.Integer(dump_only=True)
     location = fields.String(dump_only=True)
     phone_number = fields.String(dump_only=True)
     social_media_accounts = fields.String(dump_only=True)
@@ -72,5 +74,5 @@ class UserSchema(ModelSchema):
     # books = fields.Nested(PlanSchema, many=True, only=['username', 'desc', 'id'])
 
 
-user_schema = UserSchema(only=['id', 'email', 'full_name', 'location', 'phone_number', 'social_media_accounts', 'avatar_link'])
+user_schema = UserSchema(only=['id', 'email', 'full_name', 'location', 'phone_number', 'social_media_accounts', 'avatar_link', 'age'])
 users_schema = UserSchema(many=True)

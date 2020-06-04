@@ -88,6 +88,7 @@ def edit_profile():
     data = request.get_json()
     user = User.query.filter_by(email=get_jwt_identity()).first()
     user.full_name = data['first_name'] + ' ' + data['last_name']
+    user.age = data['age']
     user.location = data['city'] + ',' + data['country']
     user.phone_number = data['phone_number']
     user.social_media_accounts = dict_to_string(data['social_media_accounts'])
