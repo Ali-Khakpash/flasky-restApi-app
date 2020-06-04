@@ -4,13 +4,6 @@
     <list default="true" id="ed9ebb66-2f31-4a22-ab7e-b8c2ccbac340" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_handle.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/bf9a9cfa7213_.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users_routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +47,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flask-admin" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
   </component>
   <component name="ServiceViewManager">
@@ -204,7 +197,13 @@
       <workItem from="1590387921421" duration="453000" />
       <workItem from="1590388445280" duration="4825000" />
       <workItem from="1590418382855" duration="293000" />
-      <workItem from="1590418971974" duration="2027000" />
+      <workItem from="1590418971974" duration="2467000" />
+      <workItem from="1590422837146" duration="47000" />
+      <workItem from="1590906483930" duration="107000" />
+      <workItem from="1590906785801" duration="47000" />
+      <workItem from="1590907940868" duration="763000" />
+      <workItem from="1590909322506" duration="1976000" />
+      <workItem from="1591267408578" duration="24000" />
     </task>
     <servers />
   </component>
@@ -220,10 +219,10 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="449" y="145" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1299.741@67.27.1299.741" timestamp="1590390194058" />
-    <state x="494" y="140" width="424" height="513" key="FileChooserDialogImpl" timestamp="1590395179072">
+    <state x="494" y="140" width="424" height="513" key="FileChooserDialogImpl" timestamp="1591267430776">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="494" y="140" width="424" height="513" key="FileChooserDialogImpl/67.27.1299.741@67.27.1299.741" timestamp="1590395179072" />
+    <state x="494" y="140" width="424" height="513" key="FileChooserDialogImpl/67.27.1299.741@67.27.1299.741" timestamp="1591267430776" />
     <state x="205" y="31" key="SettingsEditor" timestamp="1582801737552">
       <screen x="67" y="27" width="1299" height="741" />
     </state>

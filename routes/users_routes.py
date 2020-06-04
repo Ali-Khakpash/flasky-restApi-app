@@ -83,9 +83,10 @@ def verify_user():
 
 
 @user_routes.route('edit_profile', methods=['PUT'])
+@jwt_required
 def edit_profile():
     data = request.get_json()
-    user = User.query.filter_by(email=data['email']).first()
+    user = User.query.filter_by(email=get_jwt_identity()).first()
     user.full_name = data['first_name'] + ' ' + data['last_name']
     user.location = data['city'] + ',' + data['country']
     user.phone_number = data['phone_number']
@@ -96,10 +97,8 @@ def edit_profile():
 
     new_dict = str_to_dict(user.social_media_accounts)
 
-    response = make_response(jsonify({'dfdf': new_dict['Skype']}), 200)
-    response.headers['Access-Control-Allow-Origin'] = 'http://127.0.0.1'
+    return jsonify({'dfdf': new_dict['Skype'], 'status_code':200})
 
-    return response
 
 
 @user_routes.route('upload_avatar', methods=['PUT'])
@@ -117,9 +116,21 @@ def upload_avatar():
             db.session.add(user)
             db.session.commit()
             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-            return jsonify({'res':file.content_type, 'status_code':200, 'url':url_for('static', filename='uploads/images/'+filename, _external=True)})
+            return jsonify({'res':file.content_type, 'status_code':200, 'avatar_url':url_for('static', filename='uploads/images/'+filename, _external=True)})
         else:
             return jsonify(res='please, upload just supported files')
+
+
+
+@user_routes.route('home', methods=['GET'])
+@jwt_required
+def home():
+    user_obj = User.query.filter_by(email=get_jwt_identity()).first()
+    user_data = user_schema.dump(user_obj)
+    return jsonify(user_data=user_data, status_code=200)
+    
+
+
 
 
 

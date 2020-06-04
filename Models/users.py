@@ -63,9 +63,14 @@ class UserSchema(ModelSchema):
 
     id = fields.Number(dump_only=True)
     email = fields.String(required=True)
+    full_name = fields.String(dump_only=True)
+    location = fields.String(dump_only=True)
+    phone_number = fields.String(dump_only=True)
+    social_media_accounts = fields.String(dump_only=True)
     avatar_link = fields.String(dump_only=True)
+
     # books = fields.Nested(PlanSchema, many=True, only=['username', 'desc', 'id'])
 
 
-user_schema = UserSchema(only=['id', 'email', 'avatar_link'])
+user_schema = UserSchema(only=['id', 'email', 'full_name', 'location', 'phone_number', 'social_media_accounts', 'avatar_link'])
 users_schema = UserSchema(many=True)
