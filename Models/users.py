@@ -31,9 +31,11 @@ class User(db.Model):
     password = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=False, nullable=False)
     isVerified = db.Column(db.Boolean, nullable=False, default=False)
-    full_name = db.Column(db.String(120), unique=False, nullable=True)
+    first_name = db.Column(db.String(120), unique=False, nullable=True)
+    last_name =  db.Column(db.String(120), unique=False, nullable=True)
     age = db.Column(db.Integer, unique=False, nullable=True)
-    location = db.Column(db.String(120), unique=False, nullable=True)
+    country = db.Column(db.String(120), unique=False, nullable=True)
+    city = db.Column(db.String(120), unique=False, nullable=True)
     phone_number = db.Column(db.String(120), unique=False, nullable=True)
     social_media_accounts = db.Column(db.String(120), unique=False, nullable=True)
     avatar_link = db.Column(db.String(120), nullable=True)
@@ -64,9 +66,11 @@ class UserSchema(ModelSchema):
 
     id = fields.Number(dump_only=True)
     email = fields.String(required=True)
-    full_name = fields.String(dump_only=True)
+    first_name = fields.String(dump_only=True)
+    last_name = fields.String(dump_only=True)
     age = fields.Integer(dump_only=True)
-    location = fields.String(dump_only=True)
+    country = fields.String(dump_only=True)
+    city = fields.String(dump_only=True)
     phone_number = fields.String(dump_only=True)
     social_media_accounts = fields.String(dump_only=True)
     avatar_link = fields.String(dump_only=True)
@@ -74,5 +78,16 @@ class UserSchema(ModelSchema):
     # books = fields.Nested(PlanSchema, many=True, only=['username', 'desc', 'id'])
 
 
-user_schema = UserSchema(only=['id', 'email', 'full_name', 'location', 'phone_number', 'social_media_accounts', 'avatar_link', 'age'])
+user_schema = UserSchema(only=
+                         ['id',
+                          'email',
+                          'phone_number',
+                          'social_media_accounts',
+                          'avatar_link',
+                          'age',
+                          'first_name',
+                          'last_name',
+                          'country',
+                          'city']
+                         )
 users_schema = UserSchema(many=True)
